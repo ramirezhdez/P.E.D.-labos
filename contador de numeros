@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+void contarMas(int i, int n);
+void contarmenos(int);
+
+int main(void)
+{
+    int n;
+    cout << "CONTADOR DE NUMEROS" << endl
+         << endl;
+    cout << "Ingrese un numero entero :  ";
+    cin >> n;
+
+    contarMas(1, n);
+    contarmenos(n);
+
+    cout << endl;
+    return 0;
+}
+void contarMas(int i, int n)
+{
+    if (i < n)
+    {
+        cout << i << endl;
+        i = i + 1;
+        contarMas(i, n);
+    }
+}
+
+void contarmenos(int n)
+{
+    if (n >= 1)
+    {
+        cout << n << endl;
+        n = n - 1;
+        contarmenos(n);
+    }
+}
+
