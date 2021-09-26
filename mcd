@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+int funcionMcd(int a, int b)
+{
+    if (b == 0)
+    {
+        return a;
+    }
+    else
+    {
+        funcionMcd(b, a % b);
+    }
+}
+
+int main()
+{
+    int a, b;
+    cout << endl;
+    cout << "\n CALCULADORA DE MCD DE 2 DIGITOS. \n" << endl;
+    cout << endl;
+    cout << endl;
+    do
+    {
+        cout << "Ingrese un primer numero  :  ";
+        cin >> a;
+        if (a < 0)
+        {
+            cout << "\n Ingrese un numero entero y positivo \n :";
+        }
+    } while (a < 0);
+
+    do
+    {
+        cout << "Ingrese un segundo numero :  ";
+        cin >> b;
+        if (b < 0)
+        {
+            cout << "\n Ingrese un numero entero y positivo \n :";
+        }
+    } while (b < 0);
+    if (a > b)
+    {
+        cout << "\n MCD(" << a << " , " << b << ") = " << funcionMcd(a, b) << endl;
+    }
+    else if (a < b)
+    {
+        cout << "\n MCD(" << b << " , " << a << ") = " << funcionMcd(b, a) << endl;
+    }
+}
