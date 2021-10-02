@@ -1,0 +1,212 @@
+#include <iostream>
+#include <cstdlib>
+#include <string.h>
+#define maxchar 50
+
+using namespace std;
+
+struct nodo
+{
+
+    int cliente;
+    char nombres[maxchar];
+    char pupusas[maxchar];
+    char masa[maxchar];
+    char bebida[maxchar];
+    char ingredientes[maxchar];
+    struct nodo *sgte;
+};
+
+typedef struct nodo *PLista;
+
+/*--------------------- FUNCION MENU PRINCIPAL --------------------*/
+void menu(void)
+{
+
+    cout << "\n\t\t[    REGISTRO     ]\n";
+    cout << " 1. LLENAR LISTA                          " << endl;
+    cout << " 2. ELIMINAR UNA ORDEN                " << endl;
+    cout << " 3. MOSTRAR TODAS LAS ORDENES            " << endl;
+    cout << " 4. SALIR                                 " << endl;
+
+    cout << "\n Ingrese opcion : ";
+}
+
+/*-------------------- FUNCION REGISTRAR ------------------*/
+void registrar_orden(PLista &lista)
+{
+
+    PLista t, q = new (struct nodo);
+
+    cout << "\n\n\t\t[  REGISTRO  ]\n";
+    cout << "\t\t------------";
+    cout << "\n\tDATOS ";
+    cin.ignore();
+    cout << "\n\n\tCLIENTE:";
+    cin >> q->cliente;
+    cin.ignore();
+    cout << "\n\tNOMBRE:";
+    cin.getline(q->nombres, maxchar);
+    cin.ignore();
+    cout << "\tNUM DE PUPUSAS:";
+    cin.getline(q->pupusas, maxchar);
+    cin.ignore();
+    cout << "\tTIPO DE MASA:";
+    cin.getline(q->masa, maxchar);
+    cin.ignore();
+    cout << "\tBEBIDAS:";
+    cin.getline(q->bebida, maxchar);
+    cin.ignore();
+    cout << "\tINGREDIENTES:";
+    cin.getline(q->ingredientes, maxchar);
+    cin.ignore();
+    system("cls");
+
+    q->sgte = NULL;
+
+    if (lista == NULL)
+    {
+
+        lista = q;
+    }
+    else
+    {
+
+        t = lista;
+
+        while (t->sgte != NULL)
+        {
+
+            t = t->sgte;
+        }
+
+        t->sgte = q;
+    }
+}
+
+/*------------------------ FUNCION ELIMINAR ---------------------*/
+void eliminar_orden(PLista &lista)
+{
+
+    int reg;
+    PLista q, t;
+    q = lista;
+
+    cout << "\n\n\n\tELIMINAR UNA ORDEN";
+    cout << "\n\n\tINGRESE El CLIENTE:";
+    cin >> reg;
+
+    while (q != NULL)
+    {
+
+        if (q->cliente == reg)
+        {
+
+            if (q == lista)
+                lista = lista->sgte;
+
+            else
+                t->sgte = q->sgte;
+
+            delete (q);
+
+            cout << "\n\n\tREGISTRO ELIMINADO...!!!!!\n";
+
+            return;
+        }
+        else
+        {
+
+            t = q;
+            q = q->sgte;
+        }
+    }
+    if (q == NULL)
+        cout << "\n\tCLIENTE INCORRECTO...!!\n";
+}
+
+/*---------------------- FUNCION MOSTRAR -------------------*/
+void mostrar_orden(PLista q)
+{
+
+    int i = 1;
+
+    while (q != NULL)
+    {
+
+        cout << "\n\tDATOS  [" << i << "] ";
+        cout << "\n\t------------------------";
+        cout << "\n\n\tCLIENTE   : " << q->cliente << endl;
+        cout << "\n\tNOMBRE  : " << q->nombres << endl;
+        cout << "\tNUM DE PUPUSAS: " << q->pupusas << endl;
+        cout << "\tTIPO DE MASA: " << q->masa << endl;
+        cout << "\tBEBIDA : " << q->bebida << endl;
+        cout << "\tINGREDIENTE : " << q->ingredientes << endl;
+        q = q->sgte;
+        i++;
+    }
+}
+
+/*------------------------- FUNCION PRINCIPAL -------------------*/
+int main(void)
+{
+
+    PLista lista = NULL;
+
+    int opcion;
+
+    do
+    {
+        menu();
+        cin >> opcion;
+
+        switch (opcion)
+        {
+
+        case 1:
+            registrar_orden(lista);
+            break;
+
+        case 2:
+            if (lista == NULL)
+            {
+
+                cout << "\n\tNo Hay ORDEN Registrada.....!!!!\n";
+            }
+            else
+            {
+
+                eliminar_orden(lista);
+            }
+            break;
+
+        case 3:
+            if (lista == NULL)
+            {
+
+                cout << "\n\tNo Hay ORDEN Registrada.....!!!!\n";
+            }
+            else
+            {
+
+                mostrar_orden(lista);
+            }
+            break;
+
+        case 4:
+            return 0;
+
+        default:
+            cout << "\nINGRESE UNA OPCION VALIDA...\n";
+            break;
+        }
+
+        system("pause");
+        system("cls");
+
+    } while (opcion != 4);
+
+    system("pause");
+
+    return 0;
+}
